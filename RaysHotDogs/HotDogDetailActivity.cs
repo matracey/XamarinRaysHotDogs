@@ -59,6 +59,9 @@ namespace RaysHotDogs
             orderButton = FindViewById<Button>(Resource.Id.orderButton);
         }
 
+        /// <summary>
+        /// Binds the Data Model from the Data Service to the View elements.
+        /// </summary>
         private void BindData()
         {
             hotDogNameTextView.Text = selectedHotDog.Name;
@@ -68,17 +71,20 @@ namespace RaysHotDogs
             hotDogImageView.SetImageBitmap(ImageHelper.GetImageBitmap("http://gillcleerenpluralsight.blob.core.windows.net/files/" + selectedHotDog.ImagePath + ".jpg"));
         }
 
+        /// <summary>
+        /// Sets up the event handlers for Button elements.
+        /// </summary>
         private void HandleEvents()
         {
             orderButton.Click += OrderButton_Click;
             cancelButton.Click += CancelButton_Click;
         }
 
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            // TODO
-        }
-
+        /// <summary>
+        /// Handles the Order button click event.
+        /// </summary>
+        /// <param name="sender">The object that triggered this event.</param>
+        /// <param name="e">The EventArgs.</param>
         private void OrderButton_Click(object sender, EventArgs e)
         {
             var amount = int.Parse(amountEditText.Text);
@@ -87,6 +93,16 @@ namespace RaysHotDogs
             dialog.SetTitle("Confirmation");
             dialog.SetMessage("Your hot dog has been added to your cart!");
             dialog.Show();
+        }
+
+        /// <summary>
+        /// Handles the Cancel button click event.
+        /// </summary>
+        /// <param name="sender">The object that triggered this event.</param>
+        /// <param name="e">The EventArgs.</param>
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            // TODO
         }
     }
 }
