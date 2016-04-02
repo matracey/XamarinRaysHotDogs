@@ -60,14 +60,14 @@ namespace RaysHotDogs
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050009
-			public const int MyButton = 2131034121;
+			// aapt resource value: 0x7f05000a
+			public const int MyButton = 2131034122;
 			
 			// aapt resource value: 0x7f050007
 			public const int amountEditText = 2131034119;
 			
-			// aapt resource value: 0x7f05000a
-			public const int button1 = 2131034122;
+			// aapt resource value: 0x7f05000b
+			public const int button1 = 2131034123;
 			
 			// aapt resource value: 0x7f050006
 			public const int cancelButton = 2131034118;
@@ -77,6 +77,9 @@ namespace RaysHotDogs
 			
 			// aapt resource value: 0x7f050001
 			public const int hotDogImageView = 2131034113;
+			
+			// aapt resource value: 0x7f050009
+			public const int hotDogListView = 2131034121;
 			
 			// aapt resource value: 0x7f050002
 			public const int hotDogNameTextView = 2131034114;
@@ -110,7 +113,10 @@ namespace RaysHotDogs
 			public const int HotDogDetailView = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int HotDogMenuView = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{

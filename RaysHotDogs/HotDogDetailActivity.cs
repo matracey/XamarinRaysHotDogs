@@ -15,7 +15,7 @@ using RaysHotDogs.Utility;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "Hot Dog detail", MainLauncher = true)]
+    [Activity(Label = "Hot Dog detail")]
     public class HotDogDetailActivity : Activity
     {
         private ImageView hotDogImageView;
