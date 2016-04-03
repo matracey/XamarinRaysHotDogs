@@ -15,7 +15,7 @@ using RaysHotDogs.Adapters;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "HotDogMenuActivity", MainLauncher = true)]
+    [Activity(Label = "Hot Dog Menu")]
     public class HotDogMenuActivity : Activity
     {
         private ListView hotDogListView;
@@ -35,6 +35,38 @@ namespace RaysHotDogs
             hotDogListView.Adapter = new HotDogListAdapter(this, allHotDogs);
             hotDogListView.FastScrollEnabled = true;
 
+            hotDogListView.ItemClick += HotDogListView_ItemClick;
+        }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if(resultCode == Result.Ok && requestCode == 100)
+            {
+                var selectedDog = dataService.GetHotDog(data.GetIntExtra("selectedHotDogId", 0));
+
+                var dialog = new AlertDialog.Builder(this);
+                dialog.SetTitle("Confirmation");
+                dialog.SetMessage(string.Format("You've add {0} {1} to your basket.", data.GetIntExtra("amount", 0), selectedDog.Name));
+                dialog.Show();
+            }
+        }
+
+        /// <summary>
+        /// Handles the Item click event.
+        /// </summary>
+        /// <param name="sender">The object that triggered this event.</param>
+        /// <param name="e">The EventArgs.</param>
+        private void HotDogListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var dog = allHotDogs[e.Position];
+
+            var intent = new Intent();
+            intent.SetClass(this, typeof(HotDogDetailActivity));
+            intent.PutExtra("selectedHotDogId", dog.Id);
+
+            StartActivityForResult(intent, 100);
         }
     }
 }
