@@ -249,8 +249,8 @@ bin
 obj
 Components/
 */_ReSharper.*/*
-*.Designer.cs
-*.designer.cs
+*/*.Designer.cs
+*/*.designer.cs
 *.DS_Store
 *Thumbs.db
 ContentControls/ContentControls/Resources/Values/PrivateStrings.xml
