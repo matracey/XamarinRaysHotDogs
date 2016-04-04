@@ -52,6 +52,7 @@ namespace RaysHotDogs
             order.Click += Order_Click;
             about.Click += About_Click;
             picture.Click += Picture_Click;
+            map.Click += Map_Click;
         }
 
         /// <summary>
@@ -84,6 +85,17 @@ namespace RaysHotDogs
         private void Picture_Click(object sender, EventArgs e)
         {
             var intent = new Intent(this, typeof(TakePictureActivity));
+            StartActivity(intent);
+        }
+
+        /// <summary>
+        /// Handles the Map button click event.
+        /// </summary>
+        /// <param name="sender">The object that triggered this event.</param>
+        /// <param name="e">The EventArgs.</param>
+        private void Map_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this, typeof(RayMapActivity));
             StartActivity(intent);
         }
     }
