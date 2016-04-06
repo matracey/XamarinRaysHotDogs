@@ -43,7 +43,7 @@ namespace RaysHotDogs.Adapters
             if(convertView == null)
                 convertView = context.LayoutInflater.Inflate(Resource.Layout.HotDogRowView, null);
 
-            convertView.FindViewById<ImageView>(Android.Resource.Id.Icon).SetImageBitmap(imageBitmap);
+            convertView.FindViewById<ImageView>(Resource.Id.hotDogImageView).SetImageBitmap(imageBitmap);
             convertView.FindViewById<TextView>(Resource.Id.hotDogNameTextView).Text = item.Name;
             convertView.FindViewById<TextView>(Resource.Id.shortDescriptionTextView).Text = item.ShortDescription;
             convertView.FindViewById<TextView>(Resource.Id.priceTextView).Text = "$"+ item.Price;

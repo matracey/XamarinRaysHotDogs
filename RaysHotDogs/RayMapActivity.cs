@@ -32,7 +32,7 @@ namespace RaysHotDogs
         /// </summary>
         private void FindViews()
         {
-            externalMap = FindViewById<Button>(Resource.Id.mapButton);
+            externalMap = FindViewById<Button>(Resource.Id.externalMapButton);
         }
         
         /// <summary>
