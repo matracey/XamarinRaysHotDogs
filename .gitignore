@@ -253,7 +253,7 @@ Components/
 **/*.designer.cs
 **/*.DS_Store
 **/*Thumbs.db
-ContentControls/ContentControls/Resources/Values/PrivateStrings.xml
+**/PrivateStrings.xml
 
 /AndroidMapViewBalloons/android-mapviewballoons/
 google-play-services_lib
