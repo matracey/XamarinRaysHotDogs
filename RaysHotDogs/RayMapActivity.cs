@@ -102,6 +102,8 @@ namespace RaysHotDogs
                     googleMap.MoveCamera(cameraUpdate);
                 }
             };
+
+            mapFragment.GetMapAsync(mapReadyCallback);
         }
 
         private class LocalMapReady : Java.Lang.Object, IOnMapReadyCallback
