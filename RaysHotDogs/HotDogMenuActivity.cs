@@ -12,13 +12,13 @@ using Android.Widget;
 using RaysHotDogs.Core.Model;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Adapters;
+using RaysHotDogs.Fragments;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "HotDogMenuActivity", MainLauncher = true)]
+    [Activity(Label = "Hot Dog Menu")]
     public class HotDogMenuActivity : Activity
     {
-        private ListView hotDogListView;
         private List<HotDog> allHotDogs;
         private HotDogDataService dataService;
 
@@ -28,13 +28,51 @@ namespace RaysHotDogs
 
             SetContentView(Resource.Layout.HotDogMenuView);
 
-            hotDogListView = FindViewById<ListView>(Resource.Id.hotDogListView);
-            dataService = new HotDogDataService();
-            allHotDogs = dataService.GetAllHotDogs();
+            ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
-            hotDogListView.Adapter = new HotDogListAdapter(this, allHotDogs);
-            hotDogListView.FastScrollEnabled = true;
+            AddTab("Favorites", Resource.Drawable.FavoritesIcon, new FavoriteHotDogFragment());
+            AddTab("Meat Lovers", Resource.Drawable.MeatLoversIcon, new MeatLoversFragment());
+            AddTab("Veggie Lovers", Resource.Drawable.VeggieLoversIcon, new VeggieLoversFragment());
+        }
 
+        private void AddTab(string tabText, int iconResourceId, Fragment view)
+        {
+            var tab = ActionBar.NewTab();
+            tab.SetText(tabText);
+            tab.SetIcon(iconResourceId);
+
+            tab.TabSelected += delegate (object sender, ActionBar.TabEventArgs e)
+            {
+                // Check for existing Fragment in the container.
+                var fragment = FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+                // Remove the existing Fragment if it exists.
+                if (fragment != null) e.FragmentTransaction.Remove(fragment);
+                // Add the Fragment that should be added.
+                e.FragmentTransaction.Add(Resource.Id.fragmentContainer, view);
+            };
+
+            tab.TabUnselected += delegate (object sender, ActionBar.TabEventArgs e)
+            {
+                // Remove the fragment.
+                e.FragmentTransaction.Remove(view);
+            };
+
+            ActionBar.AddTab(tab);
+        }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if(resultCode == Result.Ok && requestCode == 100)
+            {
+                var selectedDog = dataService.GetHotDog(data.GetIntExtra("selectedHotDogId", 0));
+
+                var dialog = new AlertDialog.Builder(this);
+                dialog.SetTitle("Confirmation");
+                dialog.SetMessage(string.Format("You've add {0} {1} to your basket.", data.GetIntExtra("amount", 0), selectedDog.Name));
+                dialog.Show();
+            }
         }
     }
 }
