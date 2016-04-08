@@ -68,7 +68,7 @@ namespace RaysHotDogs
             hotDogNameTextView.Text = selectedHotDog.Name;
             shortDescriptionTextView.Text = selectedHotDog.ShortDescription;
             descriptionTextView.Text = selectedHotDog.Description;
-            priceTextView.Text = @"Price: {selectedHotDog.Price}";
+            priceTextView.Text = @"Price: $"+selectedHotDog.Price;
             hotDogImageView.SetImageBitmap(ImageHelper.GetImageBitmap("http://gillcleerenpluralsight.blob.core.windows.net/files/" + selectedHotDog.ImagePath + ".jpg"));
         }
 

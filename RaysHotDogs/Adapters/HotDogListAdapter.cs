@@ -25,7 +25,7 @@ namespace RaysHotDogs.Adapters
             this.items = items;
         }
 
-        public override int Count { get { return items.Count; } }
+        public override int Count { get { return items != null ? items.Count : 0; } }
 
         public override HotDog this[int position] { get { return items[position]; } }
 
