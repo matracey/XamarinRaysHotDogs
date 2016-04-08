@@ -12,6 +12,15 @@ using Android.Widget;
 using RaysHotDogs.Core.Model;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Adapters;
+<<<<<<< HEAD
+
+namespace RaysHotDogs
+{
+    [Activity(Label = "HotDogMenuActivity", MainLauncher = true)]
+    public class HotDogMenuActivity : Activity
+    {
+        private ListView hotDogListView;
+=======
 using RaysHotDogs.Fragments;
 
 namespace RaysHotDogs
@@ -19,6 +28,7 @@ namespace RaysHotDogs
     [Activity(Label = "Hot Dog Menu")]
     public class HotDogMenuActivity : Activity
     {
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
         private List<HotDog> allHotDogs;
         private HotDogDataService dataService;
 
@@ -28,6 +38,15 @@ namespace RaysHotDogs
 
             SetContentView(Resource.Layout.HotDogMenuView);
 
+<<<<<<< HEAD
+            hotDogListView = FindViewById<ListView>(Resource.Id.hotDogListView);
+            dataService = new HotDogDataService();
+            allHotDogs = dataService.GetAllHotDogs();
+
+            hotDogListView.Adapter = new HotDogListAdapter(this, allHotDogs);
+            hotDogListView.FastScrollEnabled = true;
+
+=======
             ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
             AddTab("Favorites", Resource.Drawable.FavoritesIcon, new FavoriteHotDogFragment());
@@ -73,6 +92,7 @@ namespace RaysHotDogs
                 dialog.SetMessage(string.Format("You've add {0} {1} to your basket.", data.GetIntExtra("amount", 0), selectedDog.Name));
                 dialog.Show();
             }
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
         }
     }
 }

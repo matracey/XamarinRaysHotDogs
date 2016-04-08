@@ -20,6 +20,8 @@ namespace RaysHotDogs.Utility
 
             return imageBmp;
         }
+<<<<<<< HEAD
+=======
 
         public static Bitmap GetImageBitmap(string fileName, int width, int height)
         {
@@ -39,5 +41,6 @@ namespace RaysHotDogs.Utility
 
             return resizedBitmap;
         }
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
     }
 }

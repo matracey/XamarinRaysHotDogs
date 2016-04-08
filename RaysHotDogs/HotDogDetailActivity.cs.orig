@@ -37,8 +37,12 @@ namespace RaysHotDogs
             SetContentView(Resource.Layout.HotDogDetailView);
 
             HotDogDataService dataService = new HotDogDataService();
+<<<<<<< HEAD
+            selectedHotDog = dataService.GetHotDog(1);
+=======
             var selectedDogId = Intent.Extras.GetInt("selectedHotDogId");
             selectedHotDog = dataService.GetHotDog(selectedDogId);
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
 
             FindViews();
             BindData();
@@ -68,7 +72,11 @@ namespace RaysHotDogs
             hotDogNameTextView.Text = selectedHotDog.Name;
             shortDescriptionTextView.Text = selectedHotDog.ShortDescription;
             descriptionTextView.Text = selectedHotDog.Description;
+<<<<<<< HEAD
+            priceTextView.Text = @"Price: {selectedHotDog.Price}";
+=======
             priceTextView.Text = @"Price: $"+selectedHotDog.Price;
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
             hotDogImageView.SetImageBitmap(ImageHelper.GetImageBitmap("http://gillcleerenpluralsight.blob.core.windows.net/files/" + selectedHotDog.ImagePath + ".jpg"));
         }
 
@@ -90,6 +98,12 @@ namespace RaysHotDogs
         {
             var amount = int.Parse(amountEditText.Text);
 
+<<<<<<< HEAD
+            var dialog = new AlertDialog.Builder(this);
+            dialog.SetTitle("Confirmation");
+            dialog.SetMessage("Your hot dog has been added to your cart!");
+            dialog.Show();
+=======
             var intent = new Intent();
             intent.PutExtra("selectedHotDogId", selectedHotDog.Id);
             intent.PutExtra("amount", amount);
@@ -97,6 +111,7 @@ namespace RaysHotDogs
             SetResult(Result.Ok, intent);
 
             Finish();
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
         }
 
         /// <summary>
