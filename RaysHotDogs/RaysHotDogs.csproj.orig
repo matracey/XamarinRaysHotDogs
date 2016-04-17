@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,18 +15,31 @@
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+<<<<<<< HEAD
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+=======
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+<<<<<<< HEAD
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+=======
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidLinkSkip />
@@ -38,6 +51,7 @@
     <MandroidI18n />
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,6 +70,16 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+<<<<<<< HEAD
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapters\HotDogListAdapter.cs" />
+    <Compile Include="HotDogDetailActivity.cs" />
+    <Compile Include="HotDogMenuActivity.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+=======
     <Reference Include="Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Android.Support.v4.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
       <Private>True</Private>
@@ -88,11 +112,15 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TakePictureActivity.cs" />
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
     <Compile Include="Utility\ImageHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
+<<<<<<< HEAD
+=======
     <None Include="packages.config" />
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\HotDogDetailView.axml">
@@ -101,6 +129,8 @@
     <AndroidResource Include="Resources\layout\HotDogMenuView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+<<<<<<< HEAD
+=======
     <AndroidResource Include="Resources\layout\HotDogRowView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -121,6 +151,7 @@
     <AndroidResource Include="Resources\layout\RayMapView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -129,9 +160,16 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AndroidManifest.xml" />
+=======
     <None Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </None>
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaysHotDogs.Core\RaysHotDogs.Core.csproj">
@@ -139,6 +177,8 @@
       <Name>RaysHotDogs.Core</Name>
     </ProjectReference>
   </ItemGroup>
+<<<<<<< HEAD
+=======
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\RayLogo.png" />
   </ItemGroup>
@@ -185,6 +225,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\smallicon.png" />
   </ItemGroup>
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, Click Me!</string>
+<<<<<<< HEAD
+    <string name="ApplicationName">RaysHotDogs</string>
+=======
+    <string name="ApplicationName">Ray\'s Hot Dogs</string>
+>>>>>>> bb5b8abc15d0875fe2964e4149b16b7cb204bd01
+</resources>
