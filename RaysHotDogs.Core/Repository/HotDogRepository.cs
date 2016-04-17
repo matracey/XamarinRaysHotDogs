@@ -1,53 +1,42 @@
 ﻿using Newtonsoft.Json;
 using RaysHotDogs.Core.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RaysHotDogs.Core.Repository
 {
     public class HotDogRepository
     {
-        private static List<HotDogGroup> hotDogGroups = new List<HotDogGroup>();
+        private static List<HotDogGroup> _hotDogGroups = new List<HotDogGroup>();
 
-        string url = "http://gillcleerenpluralsight.blob.core.windows.net/files/hotdogs.json";
+        private const string Url = "http://gillcleerenpluralsight.blob.core.windows.net/files/hotdogs.json";
 
         public HotDogRepository()
         {
-            Task.Run(() => LoadDataAsync(url)).Wait();
+            Task.Run(() => LoadDataAsync(Url)).Wait();
         }
 
-        private async Task LoadDataAsync(string uri)
+        private static async Task LoadDataAsync(string uri)
         {
-            if(hotDogGroups != null)
+            if(_hotDogGroups != null)
             {
-                string response = null;
                 using (var httpClient = new HttpClient())
                 {
-                    try
-                    {
-                        Task<HttpResponseMessage> getResponse = httpClient.GetAsync(uri);
-                        HttpResponseMessage r = await getResponse;
-                        response = await r.Content.ReadAsStringAsync();
+                    var getResponse = httpClient.GetAsync(uri);
+                    var r = await getResponse;
+                    var response = await r.Content.ReadAsStringAsync();
 
-                        hotDogGroups = JsonConvert.DeserializeObject<List<HotDogGroup>>(response);
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw;
-                    }
+                    _hotDogGroups = JsonConvert.DeserializeObject<List<HotDogGroup>>(response);
                 };
             }
         }
 
         public List<HotDog> GetAllHotDogs()
         {
-            IEnumerable<HotDog> hotDogs =
-                from @group in hotDogGroups
+            var hotDogs =
+                from @group in _hotDogGroups
                 from hotDog in @group.HotDogs
                 select hotDog;
             return hotDogs.ToList();
@@ -55,8 +44,8 @@ namespace RaysHotDogs.Core.Repository
 
         public HotDog GetHotDog(int hotDogId)
         {
-            IEnumerable<HotDog> dogs =
-                from @group in hotDogGroups
+            var dogs =
+                from @group in _hotDogGroups
                 from hotDog in @group.HotDogs
                 where hotDog.Id == hotDogId
                 select hotDog;
@@ -65,19 +54,19 @@ namespace RaysHotDogs.Core.Repository
 
         public List<HotDogGroup> GetGroupedHotDogs()
         {
-            return hotDogGroups;
+            return _hotDogGroups;
         }
 
         public List<HotDog> GetHotDogsForGroup(int hotDogGroupId)
         {
-            var group = hotDogGroups.Where(h => h.Id == hotDogGroupId).FirstOrDefault();
-            return group != null ? group.HotDogs : null;
+            var group = _hotDogGroups.FirstOrDefault(h => h.Id == hotDogGroupId);
+            return @group?.HotDogs;
         }
 
         public List<HotDog> GetFavoriteHotDogs()
         {
-            IEnumerable<HotDog> dogs =
-                from @group in hotDogGroups
+            var dogs =
+                from @group in _hotDogGroups
                 from hotDog in @group.HotDogs
                 where hotDog.IsFavorite
                 select hotDog;

@@ -1,15 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
 using RaysHotDogs.Adapters;
 
 namespace RaysHotDogs.Fragments
@@ -23,8 +13,8 @@ namespace RaysHotDogs.Fragments
             FindViews();
             HandleEvents();
 
-            hotDogs = dataService.GetHotDogsForGroup(1);
-            listView.Adapter = new HotDogListAdapter(Activity, hotDogs);
+            HotDogs = DataService.GetHotDogsForGroup(1);
+            ListView.Adapter = new HotDogListAdapter(Activity, HotDogs);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

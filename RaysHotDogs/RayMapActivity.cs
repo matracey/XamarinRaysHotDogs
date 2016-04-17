@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
@@ -17,17 +11,16 @@ namespace RaysHotDogs
     [Activity(Label = "Visit Ray's Store")]
     public class RayMapActivity : Activity
     {
-        private Button externalMap;
-        private FrameLayout mapFrameLayout;
-        private MapFragment mapFragment;
-        private GoogleMap googleMap;
-        private LatLng rayLocation;
+        private Button _externalMap;
+        private MapFragment _mapFragment;
+        private GoogleMap _googleMap;
+        private LatLng _rayLocation;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            rayLocation = new LatLng(50.846704, 4.352446);
+            _rayLocation = new LatLng(50.846704, 4.352446);
 
             SetContentView(Resource.Layout.RayMapView);
 
@@ -42,8 +35,8 @@ namespace RaysHotDogs
         /// </summary>
         private void FindViews()
         {
-            externalMap = FindViewById<Button>(Resource.Id.externalMapButton);
-            mapFrameLayout = FindViewById<FrameLayout>(Resource.Id.mapFrameLayout);
+            _externalMap = FindViewById<Button>(Resource.Id.externalMapButton);
+            FindViewById<FrameLayout>(Resource.Id.mapFrameLayout);
         }
         
         /// <summary>
@@ -51,7 +44,7 @@ namespace RaysHotDogs
         /// </summary>
         private void HandleEvents()
         {
-            externalMap.Click += ExternalMap_Click;
+            _externalMap.Click += ExternalMap_Click;
         }
 
         /// <summary>
@@ -61,27 +54,26 @@ namespace RaysHotDogs
         /// <param name="e">The EventArgs.</param>
         private void ExternalMap_Click(object sender, EventArgs e)
         {
-            Android.Net.Uri rayLocationUri = Android.Net.Uri.Parse("geo:50.846704,4.352446");
-            Intent mapIntent = new Intent(Intent.ActionView, rayLocationUri);
+            var rayLocationUri = Android.Net.Uri.Parse("geo:50.846704,4.352446");
+            var mapIntent = new Intent(Intent.ActionView, rayLocationUri);
             StartActivity(mapIntent);
         }
 
         private void CreateMapFragment()
         {
-            mapFragment = FragmentManager.FindFragmentByTag("map") as MapFragment;
+            _mapFragment = FragmentManager.FindFragmentByTag("map") as MapFragment;
 
-            if (mapFragment == null)
-            {
-                var googleMapOptions = new GoogleMapOptions()
-                    .InvokeMapType(GoogleMap.MapTypeSatellite)
-                    .InvokeZoomControlsEnabled(true)
-                    .InvokeCompassEnabled(true);
+            if (_mapFragment != null) return;
 
-                FragmentTransaction fragmentTransaction = FragmentManager.BeginTransaction();
-                mapFragment = MapFragment.NewInstance(googleMapOptions);
-                fragmentTransaction.Add(Resource.Id.mapFrameLayout, mapFragment, "map");
-                fragmentTransaction.Commit();
-            }
+            var googleMapOptions = new GoogleMapOptions()
+                .InvokeMapType(GoogleMap.MapTypeSatellite)
+                .InvokeZoomControlsEnabled(true)
+                .InvokeCompassEnabled(true);
+
+            var fragmentTransaction = FragmentManager.BeginTransaction();
+            _mapFragment = MapFragment.NewInstance(googleMapOptions);
+            fragmentTransaction.Add(Resource.Id.mapFrameLayout, _mapFragment, "map");
+            fragmentTransaction.Commit();
         }
 
         private void UpdateMapView()
@@ -90,20 +82,23 @@ namespace RaysHotDogs
 
             mapReadyCallback.MapReady += (sender, args) =>
             {
-                googleMap = (sender as LocalMapReady).Map;
-                if (googleMap != null)
-                {
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.SetPosition(rayLocation);
-                    markerOptions.SetTitle("Ray's Hot Dogs");
-                    googleMap.AddMarker(markerOptions);
+                // Get the map.
+                _googleMap = (sender as LocalMapReady)?.Map;
+                if (_googleMap == null) return;
 
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.NewLatLngZoom(rayLocation, 15);
-                    googleMap.MoveCamera(cameraUpdate);
-                }
+                // Add the marker.
+                var markerOptions = new MarkerOptions();
+                markerOptions.SetPosition(_rayLocation);
+                markerOptions.SetTitle("Ray's Hot Dogs");
+                _googleMap.AddMarker(markerOptions);
+
+                // Zoom to location.
+                var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(_rayLocation, 15);
+                _googleMap.MoveCamera(cameraUpdate);
             };
 
-            mapFragment.GetMapAsync(mapReadyCallback);
+            // Set up the map.
+            _mapFragment.GetMapAsync(mapReadyCallback);
         }
 
         private class LocalMapReady : Java.Lang.Object, IOnMapReadyCallback

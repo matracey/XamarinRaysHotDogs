@@ -1,14 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
 using Android.Widget;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Core.Model;
@@ -17,28 +9,28 @@ namespace RaysHotDogs.Fragments
 {
     public class BaseFragment : Fragment
     {
-        protected ListView listView;
-        protected HotDogDataService dataService;
-        protected List<HotDog> hotDogs;
+        protected ListView ListView;
+        protected HotDogDataService DataService;
+        protected List<HotDog> HotDogs;
 
         public BaseFragment()
         {
-            dataService = new HotDogDataService();
+            DataService = new HotDogDataService();
         }
 
         protected void FindViews()
         {
-            listView = View.FindViewById<ListView>(Resource.Id.hotDogListView);
+            ListView = View.FindViewById<ListView>(Resource.Id.hotDogListView);
         }
 
         protected void HandleEvents()
         {
-            listView.ItemClick += ListView_ItemClick;
+            ListView.ItemClick += ListView_ItemClick;
         }
 
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var dog = hotDogs[e.Position];
+            var dog = HotDogs[e.Position];
 
             var intent = new Intent();
             intent.SetClass(this.Activity, typeof(HotDogDetailActivity));

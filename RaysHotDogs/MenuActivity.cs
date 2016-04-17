@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 
 namespace RaysHotDogs
@@ -15,11 +10,10 @@ namespace RaysHotDogs
     [Activity(Label = "Ray's Hot Dogs", MainLauncher = true, Icon = "@drawable/smallIcon")]
     public class MenuActivity : Activity
     {
-        private Button order;
-        private Button cart;
-        private Button about;
-        private Button map;
-        private Button picture;
+        private Button _order;
+        private Button _about;
+        private Button _map;
+        private Button _picture;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,11 +31,11 @@ namespace RaysHotDogs
         /// </summary>
         private void FindViews()
         {
-            order = FindViewById<Button>(Resource.Id.orderButton);
-            cart = FindViewById<Button>(Resource.Id.cartButton);
-            about = FindViewById<Button>(Resource.Id.aboutButton);
-            map = FindViewById<Button>(Resource.Id.mapButton);
-            picture = FindViewById<Button>(Resource.Id.takePictureButton);
+            _order = FindViewById<Button>(Resource.Id.orderButton);
+            FindViewById<Button>(Resource.Id.cartButton);
+            _about = FindViewById<Button>(Resource.Id.aboutButton);
+            _map = FindViewById<Button>(Resource.Id.mapButton);
+            _picture = FindViewById<Button>(Resource.Id.takePictureButton);
         }
 
         /// <summary>
@@ -49,10 +43,10 @@ namespace RaysHotDogs
         /// </summary>
         private void HandleEvents()
         {
-            order.Click += Order_Click;
-            about.Click += About_Click;
-            picture.Click += Picture_Click;
-            map.Click += Map_Click;
+            _order.Click += Order_Click;
+            _about.Click += About_Click;
+            _picture.Click += Picture_Click;
+            _map.Click += Map_Click;
         }
 
         /// <summary>

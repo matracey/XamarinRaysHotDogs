@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Java.IO;
 using Android.Provider;
@@ -19,11 +14,11 @@ namespace RaysHotDogs
     [Activity(Label = "Take a picture with Ray")]
     public class TakePictureActivity : Activity
     {
-        private ImageView rayPicture;
-        private Button takePicture;
-        private File imageDirectory;
-        private File imageFile;
-        private Bitmap imageBitmap;
+        private ImageView _rayPicture;
+        private Button _takePicture;
+        private File _imageDirectory;
+        private File _imageFile;
+        private Bitmap _imageBitmap;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,26 +28,26 @@ namespace RaysHotDogs
             FindViews();
             HandleEvents();
 
-            imageDirectory = new File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "RaysHotDogs");
-            if (!imageDirectory.Exists()) imageDirectory.Mkdirs();
+            _imageDirectory = new File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "RaysHotDogs");
+            if (!_imageDirectory.Exists()) _imageDirectory.Mkdirs();
         }
 
         private void FindViews()
         {
-            rayPicture = FindViewById<ImageView>(Resource.Id.rayPictureImageView);
-            takePicture = FindViewById<Button>(Resource.Id.takePictureButton);
+            _rayPicture = FindViewById<ImageView>(Resource.Id.rayPictureImageView);
+            _takePicture = FindViewById<Button>(Resource.Id.takePictureButton);
         }
 
         private void HandleEvents()
         {
-            takePicture.Click += TakePicture_Click;
+            _takePicture.Click += TakePicture_Click;
         }
 
         private void TakePicture_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            imageFile = new File(imageDirectory, string.Format("PhotoWithRay_{0}.jpg", Guid.NewGuid()));
-            intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(imageFile));
+            var intent = new Intent(MediaStore.ActionImageCapture);
+            _imageFile = new File(_imageDirectory, $"PhotoWithRay_{Guid.NewGuid()}.jpg");
+            intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(_imageFile));
             StartActivityForResult(intent, 0);
         }
 
@@ -60,14 +55,14 @@ namespace RaysHotDogs
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            int height = rayPicture.Height;
-            int width = rayPicture.Width;
-            imageBitmap = ImageHelper.GetImageBitmap(imageFile.Path, width, height);
+            var height = _rayPicture.Height;
+            var width = _rayPicture.Width;
+            _imageBitmap = ImageHelper.GetImageBitmap(_imageFile.Path, width, height);
 
-            if(imageBitmap != null)
+            if(_imageBitmap != null)
             {
-                rayPicture.SetImageBitmap(imageBitmap);
-                imageBitmap = null;
+                _rayPicture.SetImageBitmap(_imageBitmap);
+                _imageBitmap = null;
             }
 
             GC.Collect();

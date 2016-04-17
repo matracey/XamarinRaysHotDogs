@@ -15,7 +15,7 @@ namespace RaysHotDogs
     [Activity(Label = "About Ray's Hot Dogs")]
     public class AboutActivity : Activity
     {
-        private TextView phoneNumber;
+        private TextView _phoneNumber;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,7 +33,7 @@ namespace RaysHotDogs
         /// </summary>
         private void FindViews()
         {
-            phoneNumber = FindViewById<TextView>(Resource.Id.phoneNumberTextView);
+            _phoneNumber = FindViewById<TextView>(Resource.Id.phoneNumberTextView);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace RaysHotDogs
         /// </summary>
         private void HandleEvents()
         {
-            phoneNumber.Click += PhoneNumber_Click;
+            _phoneNumber.Click += PhoneNumber_Click;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace RaysHotDogs
         private void PhoneNumber_Click(object sender, EventArgs e)
         {
             var intent = new Intent(Intent.ActionCall);
-            intent.SetData(Android.Net.Uri.Parse("tel:" + phoneNumber.Text));
+            intent.SetData(Android.Net.Uri.Parse("tel:" + _phoneNumber.Text));
             StartActivity(intent);
         }
     }

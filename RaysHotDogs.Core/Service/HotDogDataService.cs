@@ -6,31 +6,31 @@ namespace RaysHotDogs.Core.Service
 {
     public class HotDogDataService
     {
-        private static HotDogRepository hotDogRepository = new HotDogRepository();
-
+        private static readonly HotDogRepository HotDogRepository = new HotDogRepository();
+        
         public List<HotDog> GetAllHotDogs()
         {
-            return hotDogRepository.GetAllHotDogs();
+            return HotDogRepository.GetAllHotDogs();
         }
 
         public List<HotDogGroup> GetGroupedHotDogs()
         {
-            return hotDogRepository.GetGroupedHotDogs();
+            return HotDogRepository.GetGroupedHotDogs();
         }
 
         public List<HotDog> GetHotDogsForGroup(int hotDogGroupId)
         {
-            return hotDogRepository.GetHotDogsForGroup(hotDogGroupId);
+            return HotDogRepository.GetHotDogsForGroup(hotDogGroupId);
         }
 
         public List<HotDog> GetFavoriteHotDogs()
         {
-            return hotDogRepository.GetFavoriteHotDogs();
+            return HotDogRepository.GetFavoriteHotDogs();
         }
         
         public HotDog GetHotDog(int hotDogId)
         {
-            return hotDogRepository.GetHotDog(hotDogId);
+            return HotDogRepository.GetHotDog(hotDogId);
         }
     }
 }

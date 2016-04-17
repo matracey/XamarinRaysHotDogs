@@ -1,28 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
 using RaysHotDogs.Adapters;
 
 namespace RaysHotDogs.Fragments
 {
     public class FavoriteHotDogFragment : BaseFragment
     {
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
-        }
-
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
@@ -30,8 +13,8 @@ namespace RaysHotDogs.Fragments
             FindViews();
             HandleEvents();
 
-            hotDogs = dataService.GetFavoriteHotDogs();
-            listView.Adapter = new HotDogListAdapter(Activity, hotDogs);
+            HotDogs = DataService.GetFavoriteHotDogs();
+            ListView.Adapter = new HotDogListAdapter(Activity, HotDogs);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

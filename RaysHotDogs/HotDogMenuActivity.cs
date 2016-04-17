@@ -1,17 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using RaysHotDogs.Core.Model;
 using RaysHotDogs.Core.Service;
-using RaysHotDogs.Adapters;
 using RaysHotDogs.Fragments;
 
 namespace RaysHotDogs
@@ -19,8 +10,12 @@ namespace RaysHotDogs
     [Activity(Label = "Hot Dog Menu")]
     public class HotDogMenuActivity : Activity
     {
-        private List<HotDog> allHotDogs;
-        private HotDogDataService dataService;
+        private readonly HotDogDataService _dataService;
+
+        public HotDogMenuActivity()
+        {
+            _dataService = new HotDogDataService();
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -51,28 +46,29 @@ namespace RaysHotDogs
                 e.FragmentTransaction.Add(Resource.Id.fragmentContainer, view);
             };
 
-            tab.TabUnselected += delegate (object sender, ActionBar.TabEventArgs e)
-            {
-                // Remove the fragment.
-                e.FragmentTransaction.Remove(view);
-            };
+            tab.TabUnselected += (sender, e) => e.FragmentTransaction.Remove(view);
 
             ActionBar.AddTab(tab);
         }
 
+        /// <summary>
+        /// Called when an activity exits, giving you the requestCode you started it with, the resultCode it returned, and any additional data from it.
+        /// </summary>
+        /// <param name="requestCode">The integer request code originally supplied to startActivityForResult(), allowing you to identify who this result came from.</param>
+        /// <param name="resultCode">The integer result code returned by the child activity through its setResult().</param>
+        /// <param name="data">An Intent, which can return result data to the caller (various data can be attached to Intent "extras").</param>
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if(resultCode == Result.Ok && requestCode == 100)
-            {
-                var selectedDog = dataService.GetHotDog(data.GetIntExtra("selectedHotDogId", 0));
+            if (resultCode != Result.Ok || requestCode != 100) return;
 
-                var dialog = new AlertDialog.Builder(this);
-                dialog.SetTitle("Confirmation");
-                dialog.SetMessage(string.Format("You've add {0} {1} to your basket.", data.GetIntExtra("amount", 0), selectedDog.Name));
-                dialog.Show();
-            }
+            var selectedDog = _dataService.GetHotDog(data.GetIntExtra("selectedHotDogId", 0));
+
+            var dialog = new AlertDialog.Builder(this);
+            dialog.SetTitle("Confirmation");
+            dialog.SetMessage($"You've added {data.GetIntExtra("amount", 0)} {selectedDog.Name} to your basket.");
+            dialog.Show();
         }
     }
 }
